@@ -1,0 +1,13 @@
+[cache]
+type = "redis"
+host = "127.0.0.1:6379"
+password = "isvcloud2019_cloud_isv_cn"
+
+[rpcserver]
+host="172.17.102.29"
+port="16670"
+
+[inline]
+factory_name="inline"
+station_name="inline"
+station_num="inline"
