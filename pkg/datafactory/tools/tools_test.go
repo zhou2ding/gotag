@@ -1,4 +1,4 @@
-package datafactory
+package tools
 
 import (
 	"reflect"
@@ -25,7 +25,7 @@ func TestGetUnFuncParam(t *testing.T) {
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-			got := getUnFuncParam(tt.input1, tt.input2)
+			got := GetUnFuncParam(tt.input1, tt.input2)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("got: %v, want: %v\n", got, tt.want)
 			}
@@ -51,28 +51,7 @@ func TestGetFuncName(t *testing.T) {
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-			got := getFuncName(tt.input)
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("got: %v, want: %v\n", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestGetCharacterIndex(t *testing.T) {
-	type test struct {
-		input1 string
-		input2 rune
-		want   []int
-	}
-
-	tests := map[string]*test{
-		"test1": {`tag:funcA(funcB(funcC(funcD(d1,d2),c1,c2),b1,b2),a1,a2)`, '(', []int{9, 15, 21, 27}},
-		"test2": {`tag:funcA(funcB(funcC(funcD(d1,d2),c1,c2),b1,b2),a1,a2)`, ')', []int{33, 40, 47, 54}},
-	}
-	for name, tt := range tests {
-		t.Run(name, func(t *testing.T) {
-			got := getCharacterIndex(tt.input1, tt.input2)
+			got := GetFuncName(tt.input)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("got: %v, want: %v\n", got, tt.want)
 			}
@@ -94,7 +73,7 @@ func TestGetForeignParam(t *testing.T) {
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-			got1, got2 := getForeignParam(tt.input)
+			got1, got2 := GetForeignParam(tt.input)
 			if !reflect.DeepEqual(got1, tt.want1) || got2 != tt.want2 {
 				t.Errorf("got1: %v, want1: %v, got2: %v, want2: %v\n", got1, tt.want1, got2, tt.want2)
 			}

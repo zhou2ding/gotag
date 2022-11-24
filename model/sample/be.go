@@ -1,4 +1,4 @@
-package model
+package sample
 
 type Begin struct {
 	Domain string  `json:"domain"`
@@ -15,9 +15,5 @@ type End struct {
 }
 
 type BEValue struct {
-	PlanName string `json:"planName"`
-	BodyNum  string `json:"bodyNum"`
-	Date     string `json:"data"`
-	Time     string `json:"time"`
-	Operator string `json:"operator,omitempty"`
+	// sth
 }

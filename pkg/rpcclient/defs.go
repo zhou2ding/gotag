@@ -95,7 +95,6 @@ type notificationProcessing struct {
 }
 
 type UserInfo struct {
-	FactoryName string `json:"ft"`
-	StationName string `json:"st"`
-	SerialNum   string `json:"sn"`
+	Name string `json:"name"`
+	No   string `json:"no"`
 }

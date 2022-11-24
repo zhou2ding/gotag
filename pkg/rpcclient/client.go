@@ -362,7 +362,7 @@ func (c *Client) GetErrorInfo() (ErrorCode, error) {
 func GeneratePwd(serial, random string) string {
 	m5 := md5.New()
 	m5.Write([]byte(serial))
-	m5.Write([]byte("GoTag@2020"))
+	m5.Write([]byte("GoTag@2022"))
 	m5.Write([]byte(random))
 	cipherStr := hex.EncodeToString(m5.Sum(nil))
 	return cipherStr[0:16]

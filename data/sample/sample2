@@ -1,0 +1,15 @@
+sample2 {
+    Domain string `zdb:const(common)`
+    Key string `zdb:const(rpc.upload)`
+    Id int `zdb:incrByN(10000,1)`
+    Value struct {
+        StructSlice [2]struct {
+            String string `zdb:const(ABC123)`
+            StringSlice [2]string `zdb:toStrf(rand(aaaaaa,ffffff),#%s)`
+            I int `zdb:rand(0,1)`
+            StructSlice1 [2]struct {
+                J float64 `zdb:rand(-1,-0.5)`
+            }
+        }
+    }
+}

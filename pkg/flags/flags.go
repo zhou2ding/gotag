@@ -1,31 +1,30 @@
 package flags
 
-import "flag"
+import (
+	"flag"
+)
 
 var (
-	Host     string
-	Port     string
-	User     string
-	Pwd      string
-	Duration string
+	MeasureCnt           int
+	MeasurePointInterval int64
+	PulseCnt             int
+	PulseInterVal        int
 
-	AllFlags = []*string{&Host, &Port, &User, &Pwd, &Duration}
+	//AllFlags = []any{&MeasureCnt, &MeasurePointInterval, &PulseCnt, &PulseInterVal}
 
 	// FailReason key是flag在AllFlags切片中的索引，value是flag未指定时需要打印的原因
-	FailReason = map[int]string{
-		0: "host is not specified",
-		1: "port is not specified",
-		2: "user is not specified",
-		3: "password is not specified",
-		4: "time duration is not specified",
-	}
+	//FailReason = map[int]string{
+	//	0: "measure counts is not specified",
+	//	1: "measure points time interval is not specified",
+	//	2: "pulse counts is not specified",
+	//	3: "pulse time interval is not specified",
+	//}
 )
 
 func InitFlag() {
-	flag.StringVar(&Host, "h", "", "连接rpc的IP")
-	flag.StringVar(&Port, "p", "", "连接rpc的端口")
-	flag.StringVar(&User, "u", "", "登录rpc的用户名")
-	flag.StringVar(&Pwd, "pwd", "", "登录rpc的密码")
-	flag.StringVar(&Duration, "d", "", "上传测量数据的时间间隔")
+	flag.IntVar(&MeasureCnt, "n", 1, "实时上传的次数")
+	flag.Int64Var(&MeasurePointInterval, "mt", 5, "测量数据中每个测点（MeasurePoint）间的时间间隔（Time），单位s")
+	flag.IntVar(&PulseCnt, "pn", 1, "上传测量数据（pulse）的次数")
+	flag.IntVar(&PulseInterVal, "pt", 1, "每次上传测量数据（pulse）的时间间隔")
 	flag.Parse()
 }

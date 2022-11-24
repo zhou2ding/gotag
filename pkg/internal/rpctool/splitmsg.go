@@ -6,7 +6,7 @@ import (
 	"gotag/pkg/idgen"
 )
 
-var PacketTail = []byte{'Z', 'D', 'B'}
+var PacketTail = []byte{'I', 'S', 'V', 'T'}
 
 var RpcVersion uint16 = 0x1010
 

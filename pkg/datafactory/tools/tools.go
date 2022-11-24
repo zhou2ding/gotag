@@ -1,12 +1,12 @@
-package datafactory
+package tools
 
 import (
 	"strings"
 	"unicode"
 )
 
-// 提取函数名，按从内到外的顺序排序，级别相同的从左往右排，eg：`tag:funcA(funcB(b1,b2),funcC(c1,c2),a1,a2)`，得到["funcB", "funcC", "funcA"]
-func getFuncName(tag string) []string {
+// GetFuncName 提取函数名，按从内到外的顺序排序，级别相同的从左往右排，eg：`tag:funcA(funcB(b1,b2),funcC(c1,c2),a1,a2)`，得到["funcB", "funcC", "funcA"]
+func GetFuncName(tag string) []string {
 	lefts := make([]int, 0) // '('的下标
 	fns := make([]string, 0)
 	for i, c := range tag {
@@ -22,8 +22,8 @@ func getFuncName(tag string) []string {
 	return fns
 }
 
-// 提取非函数执行结果的参数，eg：传参为`bor:funcA(funcB(b1,b2),funcC(c1,c2),a1,a2)`和funcB，则得到[b1,b2]
-func getUnFuncParam(tag, funcName string) []string {
+// GetUnFuncParam 提取非函数执行结果的参数，eg：传参为`bor:funcA(funcB(b1,b2),funcC(c1,c2),a1,a2)`和funcB，则得到[b1,b2]
+func GetUnFuncParam(tag, funcName string) []string {
 	lefts := make([]int, 0) // '('的下标
 	for i, c := range tag {
 		if c == '(' {
@@ -48,9 +48,9 @@ func getUnFuncParam(tag, funcName string) []string {
 	return nil
 }
 
-// 提取调用链和从数组中查找的索引
+// GetForeignParam 提取调用链和从数组中查找的索引
 // eg：`sum(foreign(config.value.measurePoints[A2].theoreticalX),this(dx),this(dy))`，得到 "config.value.measurePoints[pointName].theoreticalX" 和 "A2"
-func getForeignParam(tag string) ([]string, string) {
+func GetForeignParam(tag string) ([]string, string) {
 	lefts := make([]int, 0) // '('的下标
 	for i, c := range tag {
 		if c == '(' {
@@ -94,11 +94,7 @@ func getFirstInNormalCharacterIndex(s string) int {
 	return -1
 }
 
-func getThisParam(tag []string) []string {
-	return nil
-}
-
-func contains(s []string, target string) bool {
+func Contains(s []string, target string) bool {
 	for _, v := range s {
 		if strings.Contains(v, target) {
 			return true

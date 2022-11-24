@@ -1,10 +1,11 @@
-package datafactory
+package fieldtag
 
 import (
 	"bufio"
 	"gotag/pkg/l"
 	"io"
 	"os"
+	"reflect"
 	"strconv"
 	"strings"
 	"unicode"
@@ -15,14 +16,14 @@ import (
 
 var typeList = []string{"int", "bool", "float32", "float64", "string", "struct"}
 
-func GetArrayCnt(path string) (int, error) {
+func GetArrayCnts(path string, t reflect.Kind) (map[string]int, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		l.GetLogger().Error("open file failed", zap.Error(err))
-		return 0, err
+		return nil, err
 	}
 	reader := bufio.NewReader(f)
-	var cnt int
+	fieldCnt := make(map[string]int)
 	for {
 		data, _, err := reader.ReadLine()
 		if err != nil {
@@ -30,19 +31,35 @@ func GetArrayCnt(path string) (int, error) {
 				break
 			}
 			l.GetLogger().Error("read line failed", zap.Error(err))
-			return 0, err
+			return nil, err
 		}
 		line := string(data)
-		if strings.Contains(line, "]struct") {
+		var subStr string
+		switch t {
+		case reflect.Int:
+			subStr = "]int"
+		case reflect.Int64:
+			subStr = "]int64"
+		case reflect.String:
+			subStr = "]string"
+		case reflect.Struct:
+			subStr = "]struct"
+		case reflect.Float32:
+			subStr = "]float32"
+		case reflect.Float64:
+			subStr = "]float64"
+		}
+		if strings.Contains(line, subStr) {
 			left := strings.Index(line, "[")
 			right := strings.Index(line, "]")
-			cnt, err = strconv.Atoi(line[left+1 : right])
+			cnt, err := strconv.Atoi(line[left+1 : right])
 			if err != nil {
-				return 0, err
+				return nil, err
 			}
+			fieldCnt[getField(line)] = cnt
 		}
 	}
-	return cnt, nil
+	return fieldCnt, nil
 }
 
 func GetFiledTagAndFields(path string) (map[string]string, []string, error) {

@@ -1,0 +1,9 @@
+sample1 {
+    Domain string `zdb:const(common)`
+    Key string `zdb:const(rpc.upload)`
+    Id int `zdb:incrByN(10000,1)`
+    Value struct {
+        X float64 `zdb:rand(0,5)`
+        Y float64 `zdb:sum(foreign(Sample2.Value.StructSlice[String].I),this#Y)`
+    }
+}
