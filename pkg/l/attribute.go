@@ -26,7 +26,7 @@ func (c *LoggerAttr) InitDefaultLogger() *LoggerAttr {
 	c.Logging.Level = v.GetViper().GetString("log.level")
 	c.Logging.Path = "./logs/"
 	c.Logging.Console = v.GetViper().GetBool("log.console_enabled")
-	c.Logging.MaxSize = 1
+	c.Logging.MaxSize = 15
 	c.Logging.MaxAge = 60
 	c.Logging.MaxBackups = 30
 
