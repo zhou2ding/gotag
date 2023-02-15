@@ -1,6 +1,4 @@
-1、`simulator --help`查看需要指定的参数，然后指定参数启动模拟器，模拟器上传完成数据后，会持续发送rpc心跳，可通过`ctrl+c`退出
-
-2、tag配置说明：
+tag配置说明：
 
 格式为：**\`bor:function(param...)\`**，各function及其param用法如下：
 
